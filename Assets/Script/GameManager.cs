@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -16,6 +17,9 @@ public class GameManager : MonoBehaviour
 
     [Header("----SES YONETİMİ")]
     [SerializeField] AudioSource[] _Sesler;
+    [SerializeField] Image[] _ButonGorselleri;
+    [SerializeField] Sprite[] _SpriteObjeleri;
+
 
     [Header("----UI YONETİMİ")]
     [SerializeField] GameObject[] _Paneller;
@@ -51,6 +55,45 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetInt("SonBolum", _SahneIndex + 1);
         Debug.Log("kazandin");
         _Sesler[3].Play();
+    }
+
+    void IlkKurulumIslemleri()
+    {
+        if (PlayerPrefs.GetInt("OyunSes") == 0)
+        {
+            PlayerPrefs.SetInt("OyunSes", 1);
+            _ButonGorselleri[0].sprite = _SpriteObjeleri[0];
+            _Sesler[0].mute = false;
+        }
+        else
+        {
+            PlayerPrefs.SetInt("OyunSes", 0);
+            _ButonGorselleri[0].sprite = _SpriteObjeleri[1];
+            _Sesler[0].mute = true;
+
+        }
+
+        if (PlayerPrefs.GetInt("DigerSes") == 0)
+        {
+            PlayerPrefs.SetInt("DigerSes", 1);
+            _ButonGorselleri[1].sprite = _SpriteObjeleri[2];
+            for (int i = 1; i < _Sesler.Length; i++)
+            {
+                _Sesler[i].mute = false;
+            }
+        }
+        else
+        {
+            PlayerPrefs.SetInt("DigerSes", 0);
+            _ButonGorselleri[0].sprite = _SpriteObjeleri[3];
+            for (int i = 1; i < _Sesler.Length; i++)
+            {
+                _Sesler[i].mute = true;
+            }
+
+        }
+
+
     }
 
     public void ButonIslemi(string ButonDeger)
@@ -94,6 +137,49 @@ public class GameManager : MonoBehaviour
             case "Hayir":
                 SesCal(1);
                 PanelKapat(5);
+                break;
+            case "OyunSesi":
+                SesCal(1);
+               
+
+                if (PlayerPrefs.GetInt("OyunSes")==0)
+                {
+                    PlayerPrefs.SetInt("OyunSes", 1);
+                    _ButonGorselleri[0].sprite = _SpriteObjeleri[0];
+                    _Sesler[0].mute = false;
+                }
+                else
+                {
+                    PlayerPrefs.SetInt("OyunSes", 0);
+                    _ButonGorselleri[0].sprite = _SpriteObjeleri[1];
+                    _Sesler[0].mute = true;
+
+                }
+
+                break;
+            case "DigerSes":
+
+                SesCal(1);
+                if (PlayerPrefs.GetInt("DigerSes") == 0)
+                {
+                    PlayerPrefs.SetInt("DigerSes", 1);
+                    _ButonGorselleri[1].sprite = _SpriteObjeleri[2];
+                    for (int i = 1; i < _Sesler.Length; i++)
+                    {
+                        _Sesler[i].mute = false;
+                    }
+                }
+                else
+                {
+                    PlayerPrefs.SetInt("DigerSes", 0);
+                    _ButonGorselleri[0].sprite = _SpriteObjeleri[3];
+                    for (int i = 1; i < _Sesler.Length; i++)
+                    {
+                        _Sesler[i].mute = true;
+                    }
+
+                }
+
                 break;
         }
     }

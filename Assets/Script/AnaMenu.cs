@@ -7,21 +7,17 @@ public class AnaMenu : MonoBehaviour
 {
             
         
-
-
     private void Awake()
     {
-        Debug.Log("HataBuradamı4");
         if (PlayerPrefs.HasKey("SonBolum"))
         {
-            Debug.Log("HataBuradamı1");
             PlayerPrefs.SetInt("SonBolum", 1);
-            Debug.Log("HataBuradamı2");
+            PlayerPrefs.SetInt("OyunSes", 1);
+            PlayerPrefs.SetInt("DigerSes", 1);
+
 
         }
-            Debug.Log("HataBuradamı3");
 
         SceneManager.LoadScene(PlayerPrefs.GetInt("SonBolum"));
-        Debug.Log("HataBuradamı5");
     }
 }
